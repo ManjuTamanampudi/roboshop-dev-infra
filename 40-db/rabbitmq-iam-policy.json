@@ -5,7 +5,7 @@
             "Sid": "VisualEditor0",
             "Effect": "Allow",
             "Action": "ssm:GetParameter",
-            "Resource": "arn:aws:ssm:us-east-1:786783881543:parameter/roboshop/${environment}/rabbitmq_sg_id"
+            "Resource": "arn:aws:ssm:us-east-1:786783881543:parameter/roboshop/dev/rabbitmq_sg_id"
         },
         {
             "Sid": "VisualEditor1",
