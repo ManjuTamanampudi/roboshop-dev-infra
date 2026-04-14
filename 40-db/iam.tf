@@ -31,7 +31,7 @@ resource "aws_iam_policy" "mysql" {
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
   policy = templatefile("mysql-iam-policy.json",{
-    env = var.Environment
+    environment = var.Environment
     })
 }
 
@@ -83,7 +83,7 @@ resource "aws_iam_policy" "rabbitmq" {
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
   policy = templatefile("rabbitmq-iam-policy.json",{
-    env = var.Environment
+    environment = var.Environment
     })
 }
 
