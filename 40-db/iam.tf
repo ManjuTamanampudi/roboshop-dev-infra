@@ -1,5 +1,5 @@
 
-resource "aws_iam_role" "sql_role" {
+resource "aws_iam_role" "mysql_role" {
   name = local.mysql_role_name
 
   # Terraform's "jsonencode" function converts a
@@ -36,7 +36,7 @@ resource "aws_iam_policy" "mysql" {
 }
 
 resource "aws_iam_role_policy_attachment" "mysql" {
-role = aws_iam_role.sql_role.name
+role = aws_iam_role.mysql_role.name
 policy_arn = aws_iam_policy.mysql.arn
 }
 
@@ -73,7 +73,7 @@ resource "aws_iam_role" "rabbitmq_role" {
    tags = merge(
     local.common_tags,
 {
-    Name = local.mysql_role_name
+    Name = local.rabbitmq_role_name
   })
 }
 resource "aws_iam_policy" "rabbitmq" {
@@ -88,7 +88,7 @@ resource "aws_iam_policy" "rabbitmq" {
 }
 
 resource "aws_iam_role_policy_attachment" "rabbitmq" {
-role = aws_iam_role.sql_role.name
+role = aws_iam_role.rabbitmq_role.name
 policy_arn = aws_iam_policy.rabbitmq.arn
 }
 
