@@ -30,3 +30,4 @@ data "aws_ssm_parameter" "rabbitmq_sg_id" {
 data "aws_ssm_parameter" "backend_alb_sg_id" {
   name = "/${var.Project}/${var.Environment}/backend_alb_sg_id"
 }
+
