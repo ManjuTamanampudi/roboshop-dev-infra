@@ -38,7 +38,7 @@ resource "aws_security_group_rule" "redis_bastion" {
   from_port         = 22
   to_port           = 22
   protocol          = "tcp"
-  source_security_group_id       = local.redis_sg_id
+  source_security_group_id       = local.bastion_sg_id
   security_group_id = local.redis_sg_id
 }
 resource "aws_security_group_rule" "mysql_bastion" {
@@ -46,8 +46,23 @@ resource "aws_security_group_rule" "mysql_bastion" {
   from_port         = 22
   to_port           = 22
   protocol          = "tcp"
-  source_security_group_id       = local.mysql_sg_id
+  source_security_group_id       = local.bastion_sg_id
   security_group_id = local.mysql_sg_id
 }
-#103.99.8.128/32
+resource "aws_security_group_rule" "rabbitmq_bastion" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  source_security_group_id       = local.bastion_sg_id
+  security_group_id = local.rabbitmq_sg_id
+}
+resource "aws_security_group_rule" "backend_alb_bastion" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  source_security_group_id       = local.bastion_sg_id
+  security_group_id = local.rabbitmq_sg_id
+}
 
