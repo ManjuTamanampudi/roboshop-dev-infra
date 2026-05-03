@@ -1,5 +1,5 @@
 resource "aws_lb" "backend_alb" {
-  name               = "{$var.Project}-{$var.Environment}"
+  name               = "${var.Project}-${var.Environment}"
   internal           = true
   load_balancer_type = "application"
   security_groups    = [local.backend_alb_sg_id]
@@ -8,7 +8,7 @@ resource "aws_lb" "backend_alb" {
 # keeping it false to delete it from terraform
   enable_deletion_protection = false
   tags = merge({
-    Name = "{$var.Project}-{$var.Environment}"   
+    Name = "${var.Project}-${var.Environment}"   
   },
    local.common_tags )
 }
@@ -33,7 +33,7 @@ resource "aws_lb_listener" "http" {
 # aws provides alb only with alias names not with ip's
 resource "aws_route53_record" "backend_alb" {
   zone_id = var.zone_id
-  name    = "*.backend_alb.${var.Environment}.${var.domain_name}"
+  name    = "*.backend-alb-${var.Environment}.${var.domain_name}"
   type    = "A"
 #  loadbalancer details
   alias {
