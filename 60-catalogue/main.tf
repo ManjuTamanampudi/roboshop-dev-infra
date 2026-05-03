@@ -40,7 +40,7 @@ resource "terraform_data" "bootstrap" {
 resource "aws_ec2_instance_state" "catalogue" {
   instance_id = aws_instance.catalogue.id
   state       = "stopped"
-  depends_on  = [aws_instance.catalogue]
+  depends_on  = [terraform_data.bootstrap]
 }
 
 resource "aws_ami_from_instance" "catalogue" {
@@ -158,6 +158,8 @@ resource "aws_autoscaling_policy" "catalogue" {
   autoscaling_group_name = aws_autoscaling_group.catalogue.name
   name                   = "${var.Project}-${var.Environment}-catalogue"
   policy_type            = "TargetTrackingScaling"
+  estimated_instance_warmup = 120
+
 
   target_tracking_configuration {
     predefined_metric_specification {
@@ -188,7 +190,8 @@ resource "terraform_data" "catalogue_delete" {
     aws_instance.catalogue.id
   ]
   
-  depends_on = [ aws_autoscaling_policy.catalogue ]
+  depends_on = [ aws_autoscaling_policy.catalogue,
+                 aws_ami_from_instance.catalogue ]
   provisioner "local-exec" {
     command = "aws ec2 terminate-instances --instance-ids ${aws_instance.catalogue.id}"
   }
