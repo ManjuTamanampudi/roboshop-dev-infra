@@ -12,8 +12,9 @@ variable "Project"{
     type = list
     default = [
           "mongodb", "redis", "mysql", "rabbitmq",
-          "catalouge","user","caart","payment","shipping",
+          "catalogue","user","cart","payment","shipping",
           "frontend","backend_alb","frontend_alb",
-          "bastion"
+          "bastion",
+          "openvpn"
     ]
   }
